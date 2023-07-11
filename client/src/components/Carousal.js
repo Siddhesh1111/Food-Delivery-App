@@ -7,8 +7,9 @@ export default function Carousal() {
         id="carouselExampleFade"
         className="carousel slide carousel-fade"
         data-bs-ride="carousel"
+        style={{objectFit: "contain !important"}}
       >
-        <div className="carousel-inner">
+        <div className="carousel-inner" id="carousel">
           <div className="carousel-caption" style={{ zIndex: "10" }}>
             <form className="d-flex" >
               <input
@@ -24,7 +25,7 @@ export default function Carousal() {
           </div>
           <div className="carousel-item active">
             <img
-              src="https://source.unsplash.com/random/300×300/?burger"
+              src="https://source.unsplash.com/random/500*500/?burger"
               className="d-block w-100"
               style={{ filter: "brightness(30%)" }}
               alt="..."
@@ -32,7 +33,7 @@ export default function Carousal() {
           </div>
           <div className="carousel-item">
             <img
-              src="https://source.unsplash.com/random/300×300/?momos"
+              src="https://source.unsplash.com/random/500*500/?momos"
               className="d-block w-100"
               style={{ filter: "brightness(30%)" }}
               alt="..."
@@ -40,7 +41,7 @@ export default function Carousal() {
           </div>
           <div className="carousel-item">
             <img
-              src="https://source.unsplash.com/random/300×300/?chicken"
+              src="https://source.unsplash.com/random/500*500/?chicken"
               className="d-block w-100"
               style={{ filter: "brightness(30%)" }}
               alt="..."
