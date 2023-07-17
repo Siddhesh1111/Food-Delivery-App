@@ -16,6 +16,12 @@ export default function Home() {
       <div className="m-3">
         <Card />
       </div>
+      <div className="m-3">
+        <Card />
+      </div>
+      <div className="m-3">
+        <Card />
+      </div>
       <div>
         <Footer />
       </div>
