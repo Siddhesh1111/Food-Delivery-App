@@ -3,6 +3,9 @@ const mongoDB = require('./db')
 const createUser = require('./Routes/createUser')
 const app = express()
 const port = 5000
+const mongoDB = require("./db");
+
+// mongoDB();
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -10,9 +13,10 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 
-app.use('/api', createUser);
+app.use('/api', require("./Routes/CreateUser"));
 
 app.listen(port, () => {
+    mongoDB();
   console.log(`Example app listening on port ${port}`)
   mongoDB();
 })
