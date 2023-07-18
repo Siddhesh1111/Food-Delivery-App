@@ -30,7 +30,8 @@ export default function Login() {
     }
 
     if(json.success){
-      localStorage.setItem('token',json.authToken);
+      localStorage.setItem('authToken',json.authToken);
+      console.log(json.authToken);
       navigate("/");
     }
   };
