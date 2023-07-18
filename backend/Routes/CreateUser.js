@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
+const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = "qwertyuiopasdfghjklzxcvbnm";
 
 router.post(
   "/createUser",
@@ -19,12 +23,15 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    const salt = await bcrypt.genSalt(10);
+    let securePassword = await bcrypt.hash(req.body.password, salt)
+
     try {
       const newUser = await User.create({
         name: req.body.name,
         email: req.body.email,
         location: req.body.location,
-        password: req.body.password,
+        password: securePassword,
       });
       res.json({ data: newUser, success: true });
     } catch (err) {
@@ -51,12 +58,19 @@ router.post(
           .status(400)
           .json({ errors: "These credentials do not exists" });
       }
-
-      if (existingUser.password !== req.body.password) {
+      const pwd = await bcrypt.compare(req.body.password,existingUser.password);
+      if (!pwd) {
         return res.status(400).json({ errors: "Invalid Password" });
       }
 
-      return res.json({ success: true });
+      const data = {
+        user: {
+          id: existingUser.id
+        }
+      }
+
+      const authToken = jwt.sign(data, JWT_SECRET);
+      return res.json({ success: true, authToken: authToken });
     } catch (err) {
       console.log(err);
       res.json({ success: false });
